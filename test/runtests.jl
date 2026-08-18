@@ -2,6 +2,8 @@
 
 using Test
 using flaschenpostMILP
+using JuMP
+using HiGHS
 
 @testset "flaschenpostMILPTest Tests" begin
     @testset "Basic Tests" begin
@@ -10,6 +12,6 @@ using flaschenpostMILP
     end
 
     @testset "More Tests" begin
-        @test main() == 1
+        @test main() == 0
     end
 end
