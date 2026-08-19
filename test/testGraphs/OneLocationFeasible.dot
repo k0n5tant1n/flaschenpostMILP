@@ -1,0 +1,79 @@
+digraph G {
+    rankdir=LR;
+    splines=polyline;
+    concentrate=false;
+    bgcolor="white";
+    graph [pad=0.3, nodesep=0.6, ranksep=1.0];
+    edge [fontname="Arial", fontsize=9];
+
+    1 [
+        shape=plain,
+        label=<
+            <table
+                border="2"
+                cellborder="0"
+                cellspacing="0"
+                cellpadding="2"
+                bgcolor="#EEEEEE"
+            >
+                <tr>
+                    <td><b>Depot</b></td>
+                </tr>
+                <tr>
+                    <td>
+                        <font color="#4C9A5F">
+                            t=10.0
+                        </font>
+                    </td>
+                </tr>
+            </table>
+        >
+    ];
+
+    2 [
+        shape=plain,
+        label=<
+            <table
+                border="2"
+                cellborder="0"
+                cellspacing="0"
+                cellpadding="2"
+                bgcolor="white"
+            >
+                <tr>
+                    <td><b>2</b></td>
+                </tr>
+                <tr>
+                    <td>
+                        t ∈ [3,123]
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <font color="#4C9A5F">
+                            t=3.0
+                        </font>
+                    </td>
+                </tr>
+            </table>
+        >
+    ];
+
+
+    1 -> 2 [
+    label="2",
+    color="#4C9A5F",
+    fontcolor="#4C9A5F",
+    penwidth=3,
+    style=solid,
+    arrowsize=1.1
+];
+    2 -> 1 [
+    label="2",
+    color="#4C9A5F",
+    fontcolor="#4C9A5F",
+    penwidth=3,
+    style=solid,
+    arrowsize=1.1
+];
+}
