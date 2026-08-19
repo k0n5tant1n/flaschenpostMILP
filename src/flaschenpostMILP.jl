@@ -10,14 +10,16 @@ Date: 18.08.26
 module flaschenpostMILP
 
 using JuMP
-using HiGHS
 
-export main
+export build_model
 
-function main()
-    model = Model(HiGHS.Optimizer)
-    locations = 1:2
+function build_model(model_data::Dict)
+    model = Model()
+    locations = model_data["locations"]
     N = length(locations)
+    time_windows = model_data["time_windows"]
+    dist = model_data["distance_matrix"]
+    location_service_time = model_data["location_service_time"]
 
     # Adjacency matrix A of locations to code tours. a_ij = 1 means to travel from stop i to j
     @variable(model, A[locations,locations], Bin)
@@ -27,18 +29,19 @@ function main()
 
     # Stop arrival times t for modeling travel distance and delivery time windows
     @variable(model, t[locations] >= 0)
-    dist=[0 2; 2 0]
-    unloading_service_minutes = 5
     # Stop arrival is limited by predecessor departure accounting also for travel and service time. Use bigM formulation
     # to activate restriction between stops i,j only in case of choosing to travel from i to j, that is A[i,j]=1.
-    bigM = maximum(dist) + 60*24 + unloading_service_minutes
+    bigM = maximum(dist) + 60*24 + location_service_time
     @constraint(model, [j in locations], t[j] >= dist[1,j] - (1-A[1,j])*bigM)                 # starting from depot
     @constraint(model, [i in locations[2:N], j in locations],
-                        t[j] >= t[i]+dist[i,j]+unloading_service_minutes - (1-A[i,j])*bigM)   # starting everywhere else
+                        t[j] >= t[i]+dist[i,j]+ location_service_time - (1-A[i,j])*bigM)   # starting everywhere else
 
+    # Delivery time windows have to be met by arrival times
+    @constraint(model, [i in locations[2:N]], time_windows[i][1] <= t[i] <= time_windows[i][2])
+
+    # Optimize on earliest possible return to depot which implies shortest tour duration
     @objective(model, Min, t[1])
-    optimize!(model)
-    return value(t[1])
+    return model
 end
 
 end
