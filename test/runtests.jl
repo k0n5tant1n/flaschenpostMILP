@@ -6,12 +6,11 @@ using JuMP
 using HiGHS
 
 @testset "flaschenpostMILPTest Tests" begin
-    @testset "Basic Tests" begin
-        @test true
-        @test 1 + 1 == 2
+    @testset "Objective Value Tests" begin
+        @test main() == 9
     end
 
-    @testset "More Tests" begin
-        @test main() == 0
+    @testset "Solution Tests" begin
+        @test main() == 9
     end
 end
