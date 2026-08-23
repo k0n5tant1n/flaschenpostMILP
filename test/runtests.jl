@@ -6,9 +6,9 @@ using JuMP
 using HiGHS
 import MathOptInterface as MOI
 
-include("testData.jl")
-include("testGraphs/graphviz.jl")
-include("testGraphs/tikz.jl")
+include("test_data.jl")
+include("graphs/graphviz.jl")
+include("graphs/tikz.jl")
 
 
 @testset "One location feasible tests" begin
@@ -17,8 +17,8 @@ include("testGraphs/tikz.jl")
         set_silent(model)
         set_optimizer(model, () -> HiGHS.Optimizer())
         optimize!(model)
-        export_graphviz("./testGraphs/OneLocationFeasible.dot", ONE_LOCATION_FEASIBLE, model[:A], model[:t])
-        export_tikz("./testGraphs/OneLocationFeasible.tex", ONE_LOCATION_FEASIBLE, model[:A], model[:t])
+        export_graphviz("./graphs/OneLocationFeasible.dot", ONE_LOCATION_FEASIBLE, model[:A], model[:t])
+        export_tikz("./graphs/OneLocationFeasible.tex", ONE_LOCATION_FEASIBLE, model[:A], model[:t])
         @test is_solved_and_feasible(model) == true
         @test objective_value(model) == 10
     end
@@ -54,8 +54,8 @@ end
     set_silent(model)
     set_optimizer(model, () -> HiGHS.Optimizer())
     optimize!(model)
-    export_graphviz("./testGraphs/TwoLocationFeasible.dot", TWO_LOCATION_FEASIBLE, model[:A], model[:t])
-    export_tikz("./testGraphs/TwoLocationFeasible.tex", TWO_LOCATION_FEASIBLE, model[:A], model[:t])
+    export_graphviz("./graphs/TwoLocationFeasible.dot", TWO_LOCATION_FEASIBLE, model[:A], model[:t])
+    export_tikz("./graphs/TwoLocationFeasible.tex", TWO_LOCATION_FEASIBLE, model[:A], model[:t])
     @test is_solved_and_feasible(model) == true
     A = model[:A]
     t = model[:t]
@@ -65,4 +65,11 @@ end
     @test value(t[2]) == 5
     @test value(t[3]) == 13
     @test value(t[1]) == 25
+end
+
+
+@testset "GeoCoordinate tests" begin
+    my_home = GeoCoordinate(52.5400, 13.1587)
+    @test my_home.latitude ≈ 52.5400
+    @test my_home.longitude ≈ 13.1587
 end

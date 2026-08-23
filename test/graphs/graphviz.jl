@@ -8,9 +8,9 @@ Date: 19.08.26
 =#
 
 function export_graphviz(filename, data, A, t; threshold = 0.5)
-    locations = data["locations"]
-    time_windows = data["time_windows"]
-    distance_matrix = data["distance_matrix"]
+    locations = 1:data.location_count
+    time_windows = data.time_windows
+    distance_matrix = data.distance_matrix
 
     arcs = [(i, j) for i in locations for j in locations if i != j]
 

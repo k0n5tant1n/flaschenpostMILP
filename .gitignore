@@ -1,4 +1,10 @@
 .idea/
 
+# graph visulization
+*.tex
 *.pdf
+*.log
+
+*.dot
 *.svg
+*.aux

@@ -20,3 +20,10 @@ The tour constraints for itself would not be sufficient to get practical useful
 tours (without subtours). But together with constraints on ordered arrival times
 (and `location_service_time > 0`) the results meet (most of) all requirements 
 for a realistic flaschenpost scenario.
+
+## Test data and graphs
+Some test fixtures are documented with *test_data.jl*. You can visualize test data
+in graphs by using latex/TikZ or Graphviz after running *tikz.jl* or *graphviz.jl*
+with model data input.
+- Tikz/latex: ```$ pdflatex [file_name].tex```
+- Graphviz: ```$ dot -Tsvg [file_name].dot -o [file_name].svg ```
