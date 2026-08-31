@@ -22,8 +22,6 @@ tours (without subtours). But together with constraints on ordered arrival times
 for a realistic flaschenpost scenario.
 
 ## Test data and graphs
-Some test fixtures are documented with *test_data.jl*. You can visualize test data
-in graphs by using latex/TikZ or Graphviz after running *tikz.jl* or *graphviz.jl*
+Some test fixtures are documented with *test_data.jl*. You can visualize these test graphs by using latex/TikZ after running *tikz.jl*
 with model data input.
 - Tikz/latex: ```$ pdflatex [file_name].tex```
-- Graphviz: ```$ dot -Tsvg [file_name].dot -o [file_name].svg ```

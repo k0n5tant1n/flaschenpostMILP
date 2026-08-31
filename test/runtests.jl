@@ -7,7 +7,6 @@ using HiGHS
 import MathOptInterface as MOI
 
 include("test_data.jl")
-include("graphs/graphviz.jl")
 include("graphs/tikz.jl")
 
 
@@ -17,7 +16,6 @@ include("graphs/tikz.jl")
         set_silent(model)
         set_optimizer(model, () -> HiGHS.Optimizer())
         optimize!(model)
-        export_graphviz("./graphs/OneLocationFeasible.dot", ONE_LOCATION_FEASIBLE, model[:A], model[:t])
         export_tikz("./graphs/OneLocationFeasible.tex", ONE_LOCATION_FEASIBLE, model[:A], model[:t])
         @test is_solved_and_feasible(model) == true
         @test objective_value(model) == 10
@@ -54,7 +52,6 @@ end
     set_silent(model)
     set_optimizer(model, () -> HiGHS.Optimizer())
     optimize!(model)
-    export_graphviz("./graphs/TwoLocationFeasible.dot", TWO_LOCATION_FEASIBLE, model[:A], model[:t])
     export_tikz("./graphs/TwoLocationFeasible.tex", TWO_LOCATION_FEASIBLE, model[:A], model[:t])
     @test is_solved_and_feasible(model) == true
     A = model[:A]

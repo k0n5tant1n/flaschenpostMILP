@@ -21,6 +21,7 @@ export ModelData
 export GeoCoordinate
 export Booking
 export Vehicle
+
 export build_model
 
 function build_model(model_data::ModelData)
